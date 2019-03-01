@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import "./App.css";
+
+import HelloWorld from "./HelloWorld";
+import ButtonGroup from "./ButtonGroup";
+
+// import { store } from "./store/store";
 
 class App extends Component {
+  // state = store.getState()
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    return [
+      // <HelloWorld key={1} tech={store.getState().tech} />,
+      <HelloWorld key={1} tech={this.props.tech} />,
+      <ButtonGroup key={2} technologies={["React", "Elm", "React-redux"]} />
+    ];
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    tech: state.tech
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
